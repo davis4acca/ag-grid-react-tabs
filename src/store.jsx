@@ -22,5 +22,6 @@ if (cache) {
 export default createStore(
   gridReducer,
   initialState,
-  composeWithDevTools(applyMiddleware(thunk, logger))
+  composeWithDevTools(applyMiddleware(thunk))
+  // composeWithDevTools(applyMiddleware(thunk, logger))
 );

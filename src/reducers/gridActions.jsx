@@ -111,9 +111,27 @@ export const actions = {
   },
 
   destroyTab(tabIndex) {
-    return {
-      type: types.DESTROY_TAB,
-      payload: tabIndex,
+    return (dispatch, getState) => {
+      dispatch({
+        type: types.DESTROY_TAB,
+        payload: tabIndex,
+      });
+
+      // if all CurrentView tabIndex exists in allGrids then do nothing, else change to next available tab
+
+      const currentViewIndex = getState().currentViewInfo.index;
+      const currentView = getState().allViews[currentViewIndex];
+
+      const indx = currentView.tabIndex;
+      const allGrids = currentView.allGrids;
+
+      let doesGridExist = allGrids[indx];
+      if (doesGridExist) return;
+
+      const nextAvailableIndex = allGrids.length - 1;
+
+      if (nextAvailableIndex !== -1)
+        dispatch(actions.changeTab(nextAvailableIndex));
     };
   },
 
