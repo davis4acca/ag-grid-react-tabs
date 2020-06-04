@@ -11,6 +11,7 @@ import { getCurrentViewTabIndex } from "./reducers/selectors";
 
 import TabsView from "./components/TabsView/TabsView";
 import ActionButtons from "./components/ActionButtons/ActionButtons";
+import generateGridConfig from "./helpers/generateGridConfig";
 
 class App extends Component {
   render() {

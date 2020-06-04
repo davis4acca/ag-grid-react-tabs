@@ -30,7 +30,7 @@ function GridTab(props) {
           {...tabProps}
           classes={{ wrapper: classes.tabWrapper }}
           component="div"
-          onDoubleClick={() => {
+          onDoubleClick={(e) => {
             setEditing(true);
           }}
           label={gridName}
@@ -48,31 +48,36 @@ function GridTab(props) {
           }
         ></Tab>
       ) : (
-        <Input
-          onFocus={(e) => {
-            e.target.select();
-          }}
-          defaultValue={inputVal}
-          onChange={(e) => {
-            setInputValue(e.target.value);
-          }}
-          autoFocus
-          onBlur={() => {
-            stopEditing();
-          }}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              stopEditing();
-            }
-          }}
-        ></Input>
+        <Tab
+          {...tabProps}
+          component="div"
+          icon={
+            <Input
+              onFocus={(e) => {
+                e.target.select();
+              }}
+              defaultValue={inputVal}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+              }}
+              autoFocus
+              onBlur={() => {
+                stopEditing();
+              }}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  stopEditing();
+                }
+              }}
+            ></Input>
+          }
+        ></Tab>
       )}
     </Fragment>
   );
 }
 
 export default React.memo(GridTab);
-// export default GridTab;
 
 function a11yProps(index) {
   return {
