@@ -67,13 +67,18 @@ class MyGrid extends Component {
   }
 
   onFirstDataRendered(params) {
+    let isPivotMode = this.props?.isPivotMode; // boolean
+    let isPivotModeDifferent =
+      this.gridColumnApi?.isPivotMode() !== this?.props?.isPivotMode;
+
     let sortModel = this.props?.sortModel;
     let filterModel = this.props?.filterModel;
     let columnState = this.props?.columnState;
     let columnGroupState = this.props?.columnGroupState;
-    let isPivotMode = this.props?.isPivotMode; // boolean
-    let isPivotModeDifferent =
-      this.gridColumnApi?.isPivotMode() !== this?.props?.isPivotMode;
+
+    if (this?.props?.isPivotMode !== undefined && isPivotModeDifferent) {
+      this.gridColumnApi.setPivotMode(isPivotMode);
+    }
 
     if (columnState) {
       this.gridColumnApi.setColumnState(columnState);
@@ -89,9 +94,6 @@ class MyGrid extends Component {
 
     if (filterModel) {
       this.gridApi.setFilterModel(filterModel);
-    }
-    if (this?.props?.isPivotMode !== undefined && isPivotModeDifferent) {
-      this.gridColumnApi.setPivotMode(isPivotMode);
     }
   }
 
@@ -135,6 +137,8 @@ class MyGrid extends Component {
           onColumnResized={this.onSaveGridColumnState.bind(this)}
           onColumnMoved={this.onSaveGridColumnState.bind(this)}
           onColumnRowGroupChanged={this.onSaveGridColumnState.bind(this)}
+          onColumnValueChanged={this.onSaveGridColumnState.bind(this)}
+          onColumnPivotChanged={this.onSaveGridColumnState.bind(this)}
           onColumnPivotModeChanged={this.onSavePivotModeState.bind(this)}
         ></AgGridReact>
       </div>
